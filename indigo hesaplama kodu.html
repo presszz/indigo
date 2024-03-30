@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Numeroloji Hesaplama</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    h2 {
+        text-align: center;
+    }
+    form {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    input[type="text"],
+    input[type="date"],
+    button {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+    }
+    button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+    #result {
+        max-width: 400px;
+        margin: 20px auto;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+</style>
+</head>
+<body>
+<h2>Numeroloji Hesaplama</h2>
+<form id="numerologyForm">
+    <label for="name">Adınız:</label>
+    <input type="text" id="name" name="name" required>
+    
+    <label for="birthdate">Doğum Tarihiniz:</label>
+    <input type="date" id="birthdate" name="birthdate" required>
+    
+    <button type="button" onclick="calculateNumerology()">Hesapla</button>
+</form>
+
+<div id="result"></div>
+
+<script>
+function calculateNumerology() {
+    var name = document.getElementById("name").value.toUpperCase(); // Adı büyük harflere dönüştür
+    var birthdate = document.getElementById("birthdate").value;
+    
+    // Türk alfabesine uygun olarak harflerin numerolojik değerlerini ayarla
+    var letterValues = {
+        'S': 1, 'Ş': 1,
+        'C': 3, 'Ç': 3,
+        'O': 6, 'Ö': 6,
+        'G': 7, 'Ğ': 7,
+        'I': 9, 'İ': 9
+    };
+    
+    // Adın numerolojik değerini hesapla
+    var nameValue = 0;
+    for (var i = 0; i < name.length; i++) {
+        if (letterValues[name[i]] !== undefined) {
+            nameValue += letterValues[name[i]];
+        }
+    }
+    
+    // Doğum tarihindeki sayıların toplamını al
+    var birthdateValue = 0;
+    var birthdateNumbers = birthdate.split("-");
+    for (var i = 0; i < birthdateNumbers.length; i++) {
+        birthdateValue += parseInt(birthdateNumbers[i]);
+    }
+    
+    // Toplamı tek haneli bir sayıya indirge
+    var totalValue = nameValue + birthdateValue;
+    while (totalValue > 9) {
+        totalValue = Math.floor(totalValue / 10) + totalValue % 10;
+    }
+    
+    // Numeroloji numarasına göre detaylı açıklamayı belirle
+    var description = "";
+    var detailedDescription = "";
+    switch (totalValue) {
+        case 1:
+            description = "Bağımsızlık, liderlik ve yaratıcılıkla ilişkilidir.";
+            detailedDescription = "<h3>Bağımsızlık</h3><p>Bağımsızlık, numeroloji numarası 1'e sahip bireylerin öne çıkan bir özelliğidir. Kendi fikirlerini benimserler ve kendi kararlarını almaktan çekinmezler. Başkalarının etkisinden kolaylıkla sıyrılabilirler ve kendi yolunda ilerlemeye odaklanırlar.</p><h3>Liderlik</h3><p>Numeroloji numarası 1 liderlik özelliklerini temsil eder. Bu bireyler, grupların veya projelerin lideri olmaktan çekinmezler. Kararlılıkla hedeflerine yönelir ve başkalarını da etkilemeyi başarabilirler.</p><h3>Yaratıcılık</h3><p>Numeroloji numarası 1, yaratıcılıkla da ilişkilendirilir. Bu bireyler genellikle yaratıcı düşünme yeteneklerine sahiptirler ve yeni ve yenilikçi çözümler bulma konusunda başarılı olabilirler.</p>";
+            break;
+        case 2:
+            description = "Duyarlılık, işbirliği ve dengeyi simgeler.";
+            detailedDescription = "<h3>Duyarlılık</h3><p>Duyarlılık, numeroloji numarası 2'ye sahip bireylerin belirgin bir özelliğidir. Diğer insanların duygularına ve ihtiyaçlarına hassas bir şekilde yanıt verebilirler. Empati yetenekleri gelişmiştir ve çevrelerindeki insanlarla empatik bir bağ kurabilirler.</p><h3>İşbirliği</h3><p>Numeroloji numarası 2, işbirliği yapma yeteneklerini simgeler. Bu bireyler genellikle uyumlu ve işbirlikçi olma eğilimindedirler. Grup içinde çalışmayı tercih ederler ve birlikte daha büyük başarılar elde etmeye odaklanırlar.</p><h3>Denge</h3><p>Numeroloji numarası 2'ye sahip bireyler, dengeyi korumaya önem verirler. Duygusal ve sosyal dengeyi sağlama konusunda dikkatli davranırlar ve çatışmalardan kaçınmak için çaba sarf ederler.</p>";
+            break;
+        case 3:
+            description = "İletişim, iyimserlik ve hayal gücünü yansıtır.";
+            detailedDescription = "<h3>İletişim</h3><p>İletişim, numeroloji numarası 3'e sahip bireylerin önemli bir özelliğidir. Bu bireyler genellikle sözel ve yazılı iletişimde başarılıdır ve başkalarını etkilemeyi başarabilirler. İletişim becerileri gelişmiştir ve çevrelerindeki insanlarla kolaylıkla iletişim kurabilirler.</p><h3>İyimserlik</h3><p>Numeroloji numarası 3, iyimserlikle ilişkilendirilir. Bu bireyler genellikle olumlu bir bakış açısına sahiptirler ve zorluklarla karşılaştıklarında bile umutlarını kaybetmezler. Pozitif enerjileri etraflarındaki insanları etkileyebilir.</p><h3>Hayal Gücü</h3><p>Numeroloji numarası 3'e sahip bireyler, genellikle gelişmiş bir hayal gücüne sahiptirler. Yaratıcı ve sanatsal faaliyetlere ilgi duyarlar ve genellikle hayal güçlerini kullanarak yeni projeler ve fikirler geliştirirler.</p>";
+            break;
+        case 4:
+            description = "Dayanıklılık, güvenilirlik ve düzenle ilişkilidir.";
+            detailedDescription = "<h3>Dayanıklılık</h3><p>Numeroloji numarası 4'e sahip bireyler genellikle dayanıklı ve kararlı kişilerdir. Zorluklarla karşılaştıklarında pes etmezler ve hedeflerine ulaşmak için azimle çalışırlar. Sabırlı ve dirençlidirler ve genellikle uzun vadeli başarıya odaklanırlar.</p><h3>Güvenilirlik</h3><p>Numeroloji numarası 4, güvenilirlikle ilişkilidir. Bu bireyler genellikle güvenilir ve sorumludur ve diğerlerine karşı taahhütlerini yerine getirirler. Güvenilirlikleriyle çevrelerindeki insanlara destek olabilirler.</p><h3>Düzen</h3><p>Numeroloji numarası 4, düzeni ve disiplini temsil eder. Bu bireyler genellikle düzenli bir yaşam tarzını benimserler ve sorumluluklarını zamanında yerine getirirler. Düzenli bir çalışma ortamı onların başarılı olmasına yardımcı olabilir.</p>";
+            break;
+        case 5:
+            description = "Özgürlük, macera ve değişimle bağlantılıdır.";
+            detailedDescription = "<h3>Özgürlük</h3><p>Numeroloji numarası 5'e sahip bireyler genellikle özgür ruhlu ve bağımsızdır. Rutinden hoşlanmazlar ve kısıtlamalardan kaçınmaya çalışırlar. Özgürlüklerini korumak ve yeni deneyimler yaşamak için cesurca adımlar atabilirler.</p><h3>Macera</h3><p>Numeroloji numarası 5, macera ruhuyla ilişkilidir. Bu bireyler genellikle heyecan verici ve riskli maceralara çıkmaktan keyif alırlar. Yenilik ararlar ve sık sık sınırlarını zorlarlar.</p><h3>Değişim</h3><p>Numeroloji numarası 5, değişimle ilişkilendirilir. Bu bireyler genellikle değişime açıktır ve yeni fırsatlar ararlar. Rutin ve monotonluktan kaçınmak için sürekli olarak değişim arayışı içindedirler.</p>";
+            break;
+        case 6:
+            description = "Sorumluluk, hizmet ve aileyle ilgilidir.";
+            detailedDescription = "<h3>Sorumluluk</h3><p>Numeroloji numarası 6, sorumluluk duygusunu temsil eder. Bu bireyler genellikle sorumluluk sahibidirler ve çevrelerindeki insanlara yardım etmekten mutluluk duyarlar. Verimli ve disiplinli bir şekilde çalışırlar ve taahhütlerini yerine getirirler.</p><h3>Hizmet</h3><p>Numeroloji numarası 6, başkalarına hizmet etme arzusunu yansıtır. Bu bireyler genellikle topluma katkıda bulunmak için çaba sarf ederler ve çevrelerindeki insanlara destek olurlar. Empati yetenekleri gelişmiştir ve başkalarının ihtiyaçlarını anlama konusunda başarılıdırlar.</p><h3>Aile</h3><p>Numeroloji numarası 6'ya sahip bireyler genellikle aile değerlerine önem verirler. Aileleri için fedakarlıkta bulunmaktan mutluluk duyarlar ve aile bağlarını güçlendirmek için çaba sarf ederler. Sevgi dolu bir aile ortamı onların mutluluğu için önemlidir.</p>";
+            break;
+        case 7:
+            description = "Bilgelik, derinlik ve içsel keşifle ilişkilidir.";
+            detailedDescription = "<h3>Bilgelik</h3><p>Numeroloji numarası 7, içsel bilgelikle ilişkilendirilir. Bu bireyler genellikle derin düşüncelere ve analitik düşünme yeteneklerine sahiptirler. Spiritüel arayışlara ilgi duyarlar ve içsel keşif için çaba sarf ederler.</p><h3>Derinlik</h3><p>Numeroloji numarası 7, derinlik ve içsel keşifle ilişkilendirilir. Bu bireyler genellikle içsel dünyalarıyla derin bir bağ kurarlar ve yüzeyin ötesine geçmeye çalışırlar. Sorgulayıcıdırlar ve derin anlamlar ararlar.</p><h3>İçsel Keşif</h3><p>Numeroloji numarası 7'ye sahip bireyler genellikle içsel keşifler yapmaktan hoşlanırlar. Kendilerini daha iyi anlamak ve gelişmek için çeşitli teknikler ve uygulamalar kullanabilirler. Kendi gerçekliklerini araştırmak ve anlamak onların yaşam amaçlarından biri olabilir.</p>";
+            break;
+        case 8:
+            description = "Başarı, güç ve maddi başarıyı yansıtır.";
+            detailedDescription = "<h3>Başarı</h3><p>Numeroloji numarası 8, başarıyla ilişkilendirilir. Bu bireyler genellikle hırslı ve başarılı olma konusunda kararlıdır. Büyük hedeflere ulaşmak için azimle çalışırlar ve genellikle liderlik pozisyonlarını tercih ederler.</p><h3>Güç</h3><p>Numeroloji numarası 8, güç ve otoriteyi temsil eder. Bu bireyler genellikle güçlü ve kararlı kişilerdir ve kontrolü ellerinde tutmaktan hoşlanırlar. Güçlü bir iradeye ve liderlik yeteneklerine sahiptirler.</p><h3>Maddi Başarı</h3><p>Numeroloji numarası 8'e sahip bireyler genellikle maddi başarıya odaklanırlar. Finansal konularda yeteneklidirler ve maddi refahları için sıkı çalışırlar. Lüks ve konfora değer verirler ve maddi hedeflere ulaşmak için kararlı bir şekilde ilerlerler.</p>";
+            break;
+        case 9:
+            description = "Altruizm, insanlık sevgisi ve evrensel sevgiyle ilişkilidir.";
+            detailedDescription = "<h3>Altruizm</h3><p>Numeroloji numarası 9, altruizm ve insanlık sevgisiyle ilişkilendirilir. Bu bireyler genellikle başkalarına yardım etmekten mutluluk duyarlar ve topluma katkıda bulunmak için çaba sarf ederler. Fedakarlık yapmaktan çekinmezler ve genellikle diğer insanlara duydukları sevgiyi açıkça gösterirler.</p><h3>İnsanlık Sevgisi</h3><p>Numeroloji numarası 9, insanlık sevgisi ve evrensel sevgiyle de ilişkilidir. Bu bireyler genellikle insanlık için çalışmayı bir yaşam amacı olarak görürler ve herkesin eşit olduğuna inanırlar. Sevgi dolu ve anlayışlı bir yaklaşımla başkalarına yardım etmeyi önemserler.</p><h3>Evrensel Sevgi</h3><p>Numeroloji numarası 9'a sahip bireyler genellikle evrensel sevgiye inanırlar. Sevginin gücüne inanırlar ve dünya barışı ve uyumu için çaba sarf ederler. Herkesin sevgi ve saygı görmeye hakkı olduğuna inanırlar ve bu değerlere bağlı kalırlar.</p>";
+            break;
+        default:
+            description = "Numeroloji numarasına uygun bir açıklama bulunamadı.";
+            detailedDescription = "Numeroloji numarası belirlenemediği için detaylı açıklama yapılamadı.";
+    }
+    
+    // Sonuçları ekrana yazdır
+    var numerologyResult = "<strong>Adınız:</strong> " + name + "<br>";
+    numerologyResult += "<strong>Doğum Tarihiniz:</strong> " + birthdate + "<br>";
+    numerologyResult += "<strong>Numerolojik Değeriniz:</strong> " + totalValue + "<br>";
+    numerologyResult += "<strong>Açıklama:</strong> " + description + "<br><br>";
+    numerologyResult += "<strong>Detaylı Açıklama:</strong> " + detailedDescription;
+    
+    document.getElementById("result").innerHTML = numerologyResult;
+}
+</script>
+</body>
+</html>
